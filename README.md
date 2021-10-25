@@ -10,3 +10,5 @@ https://github.com/making/reporting-job
 https://www.jdon.com/springbatch.html
 
 https://examples.javacodegeeks.com/enterprise-java/spring/batch/spring-batch-parallel-processing-example/
+
+https://code.likeagirl.io/four-ways-to-scale-spring-batch-3ad5042e0266
