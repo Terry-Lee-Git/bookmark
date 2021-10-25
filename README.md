@@ -8,3 +8,5 @@ https://github.com/making/reporting-job
 
 
 https://www.jdon.com/springbatch.html
+
+https://examples.javacodegeeks.com/enterprise-java/spring/batch/spring-batch-parallel-processing-example/
