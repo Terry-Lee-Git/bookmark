@@ -16,3 +16,5 @@ https://code.likeagirl.io/four-ways-to-scale-spring-batch-3ad5042e0266
 https://github.com/shinyay/spring-batch-simple/blob/df5657efb0c3f668c4354f87ee85a0ebfa3216f8/src/main/java/io/pivotal/shinyay/batch/configuration/AsyncItemProcessorConfiguration.java
 
 https://niyanchun.com/how-to-design-restful-api.html
+
+https://github.com/361387670/demo
