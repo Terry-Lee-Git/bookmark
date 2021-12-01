@@ -18,3 +18,6 @@ https://github.com/shinyay/spring-batch-simple/blob/df5657efb0c3f668c4354f87ee85
 https://niyanchun.com/how-to-design-restful-api.html
 
 https://github.com/361387670/demo
+
+
+https://stackoverflow.com/questions/50819491/api-end-point-testing-using-behave
