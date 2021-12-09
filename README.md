@@ -25,3 +25,5 @@ https://stackoverflow.com/questions/50819491/api-end-point-testing-using-behave
 https://github.com/davit-gh/bdd-test
 
 https://www.geeksforgeeks.org/grep-command-in-unixlinux/
+
+https://stackoverflow.com/questions/41718208/java-string-date-validation-using-hibernate-api
