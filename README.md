@@ -29,3 +29,5 @@ https://www.geeksforgeeks.org/grep-command-in-unixlinux/
 https://stackoverflow.com/questions/41718208/java-string-date-validation-using-hibernate-api
 
 https://www.kancloud.cn/apachecn/howtodoinjava-zh/1952700
+
+https://projects.spring.io/spring-cloud/spring-cloud.html#_service_discovery_eureka_clients
