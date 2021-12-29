@@ -31,3 +31,5 @@ https://stackoverflow.com/questions/41718208/java-string-date-validation-using-h
 https://www.kancloud.cn/apachecn/howtodoinjava-zh/1952700
 
 https://projects.spring.io/spring-cloud/spring-cloud.html#_service_discovery_eureka_clients
+
+https://github.com/zudeick/Galactic-Clash-Tools/blob/f3d7f40b2d6f87246617a1f1996196935d86473f/src/de/zudeick/galacticclash/ADBAction.java
