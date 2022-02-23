@@ -34,6 +34,6 @@ https://projects.spring.io/spring-cloud/spring-cloud.html#_service_discovery_eur
 
 https://github.com/zudeick/Galactic-Clash-Tools/blob/f3d7f40b2d6f87246617a1f1996196935d86473f/src/de/zudeick/galacticclash/ADBAction.java
 
-
+https://quarkus.io/guides/rest-json
 
 https://exceptionly.com/2022/01/18/monitoring-quarkus-with-prometheus-and-grafana/
