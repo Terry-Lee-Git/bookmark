@@ -37,3 +37,6 @@ https://github.com/zudeick/Galactic-Clash-Tools/blob/f3d7f40b2d6f87246617a1f1996
 https://quarkus.io/guides/rest-json
 
 https://exceptionly.com/2022/01/18/monitoring-quarkus-with-prometheus-and-grafana/
+
+
+https://livebook.manning.com/book/kubernetes-native-microservices-with-quarkus-and-microprofile/chapter-5/v-2/133
