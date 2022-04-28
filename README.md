@@ -40,3 +40,5 @@ https://exceptionly.com/2022/01/18/monitoring-quarkus-with-prometheus-and-grafan
 
 
 https://livebook.manning.com/book/kubernetes-native-microservices-with-quarkus-and-microprofile/chapter-5/v-2/133
+
+https://github.com/z-sample/vert.x3/tree/master
