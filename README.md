@@ -44,3 +44,5 @@ https://livebook.manning.com/book/kubernetes-native-microservices-with-quarkus-a
 https://github.com/z-sample/vert.x3/tree/master
 
 https://github.com/rewindian/vertx-web-jooq-demo.git
+
+https://github.com/ysden123/pvertx/tree/0d2c00fdbb93cc21c2b10e3f7315c56169e47258
