@@ -71,3 +71,15 @@ https://github.com/PharosProduction/tutorial-vertx-rest-on-java
 网址：文章，GitHub repo
 要点：平实的一篇 Vert.x + REST 的教程，不多不少
 评述：难得有一篇从 Maven 配置开始讲起，小白友好，尤其是对非 Java 生态转过来的开发者友好。有项目以后自己从头开始建 Maven 工程的情况并不多，但是这种手把手的教程对于新手是非常有意义的。
+
+pool.withTransaction(client -> client
+.query("INSERT INTO student (id, name) VALUES ('5','曹操')")
+.execute()
+.flatMap(res -> client
+.query("INSERT INTO student (id, name) VALUES ('6','司马懿')")
+.execute()
+// Map to a message result
+.map("student inserted")))
+.onSuccess(v -> System.out.println("Transaction succeeded"))
+.onFailure(err -> System.out.println("Transaction failed: " + err.getMessage())
+);
