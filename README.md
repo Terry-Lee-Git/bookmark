@@ -50,3 +50,5 @@ https://github.com/ysden123/pvertx/tree/
 https://github.com/migibert/vertx-in-production
 
 https://github.com/hegdekar/employee-crud.git
+
+https://github.com/liguohua-bigdata/kubernets-learn/blob/master/books/Kubernetes%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8EDocker%E5%88%B0Kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A8%E6%8E%A5%E8%A7%A6%EF%BC%88%E7%AC%AC2%E7%89%88).pdf
