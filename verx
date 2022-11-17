@@ -83,3 +83,5 @@ pool.withTransaction(client -> client
 .onSuccess(v -> System.out.println("Transaction succeeded"))
 .onFailure(err -> System.out.println("Transaction failed: " + err.getMessage())
 );
+
+https://github.com/ixtf/vertx-test/blob/master/proton/src/main/java/org/jzb/test/proton/client/ReconnectReceiver.java
