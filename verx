@@ -85,3 +85,5 @@ pool.withTransaction(client -> client
 );
 
 https://github.com/ixtf/vertx-test/blob/master/proton/src/main/java/org/jzb/test/proton/client/ReconnectReceiver.java
+
+https://github.com/jr-ken/bug_category/blob/main/data5_6/RequestResponseEndpointTest.java
