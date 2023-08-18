@@ -1,0 +1,80 @@
+java
+import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.asyncsql.AsyncSQLClient;
+import io.vertx.ext.asyncsql.MySQLClient;
+import io.vertx.ext.sql.SQLConnection;
+import io.vertx.ext.sql.SQLRowStream;
+import io.vertx.ext.sql.SQLOptions;
+import io.vertx.sqlclient.PoolOptions;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
+import io.vertx.sqlclient.SqlClient;
+import io.vertx.sqlclient.SqlClientHelper;
+import io.vertx.sqlclient.Tuple;
+import io.vertx.sqlclient.templates.SqlTemplate;
+
+public class MainVerticle {
+
+    public static void main(String[] args) {
+        Vertx vertx = Vertx.vertx();
+        HttpServer server = vertx.createHttpServer();
+        AsyncSQLClient client = MySQLClient.createShared(vertx, new JsonObject()
+            .put("host", "your-database-host")
+            .put("port", your-database-port)
+            .put("database", "your-database-name")
+            .put("user", "your-username")
+            .put("password", "your-password"));
+
+        server.requestHandler(request -> {
+            HttpServerResponse response = request.response();
+            response.putHeader("Content-Type", "application/json");
+
+            // 设置响应头，指示使用流式传输
+            response.putHeader("Transfer-Encoding", "chunked");
+
+            client.getConnection(connectionResult -> {
+                if (connectionResult.succeeded()) {
+                    SQLConnection connection = connectionResult.result();
+                    connection.setAutoCommit(true, autoCommitResult -> {
+                        if (autoCommitResult.succeeded()) {
+                            SqlTemplate.forQuery(connection, "SELECT * FROM your_table")
+                                .execute()
+                                .onSuccess(rowSet -> {
+                                    SQLRowStream rowStream = rowSet.rowStream();
+                                    Pump pump = Pump.pump(rowStream, response);
+                                    pump.start();
+
+                                    rowStream
+                                        .exceptionHandler(error -> {
+                                            response.setStatusCode(500).end();
+                                            error.printStackTrace();
+                                        })
+                                        .endHandler(endHandler -> {
+                                            rowStream.close();
+                                            connection.close();
+                                            response.end();
+                                        });
+                                })
+                                .onFailure(error -> {
+                                    connection.close();
+                                    response.setStatusCode(500).end();
+                                    error.printStackTrace();
+                                });
+                        } else {
+                            connection.close();
+                            response.setStatusCode(500).end();
+                            autoCommitResult.cause().printStackTrace();
+                        }
+                    });
+                } else {
+                    response.setStatusCode(500).end();
+                    connectionResult.cause().printStackTrace();
+                }
+            });
+        });
+
+        server.listen(8080);
+    }
+}
