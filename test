@@ -1,0 +1,94 @@
+
+import io.netty.buffer.Unpooled;
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
+public class FileDownloadRouter {
+  private Vertx vertx;
+
+  private static final Buffer EMPTY_BUFFER = Buffer.buffer(Unpooled.EMPTY_BUFFER);
+  private static final String MSG_SEPARATOR = "\n";
+  private static final String PACKET_SEPARATOR = "\n\n";
+  public static final String EVENT = "event";
+  public static final String ID = "id";
+
+  public Router router(Vertx vertx) {
+    this.vertx = vertx;
+    Router userRouter = Router.router(vertx);
+    userRouter.get("/file-download").handler(this::downloadFile);
+    return userRouter;
+  }
+
+  private void downloadFile(RoutingContext routingContext) {
+    HttpServerResponse response = routingContext.response();
+
+      response.putHeader(HttpHeaders.CONTENT_TYPE, "text/plain")
+      .putHeader("Content-Disposition", "attachment; filename=\"J1.txt\"")
+      .putHeader(HttpHeaders.TRANSFER_ENCODING, "chunked");
+
+      long pageSize = 1000;
+      Future<Long> totalItemsFuture = Future.succeededFuture(1005999L);
+
+    totalItemsFuture.onSuccess(totalItems -> pipeData2Response(response, 1, pageSize, totalItems))
+      .onFailure(throwable -> response.end());
+  }
+
+  private Future<Void> pipeData2Response(HttpServerResponse response, long startIndex, long pageSize, long totalItems) {
+    Future<List<JsonObject>> returnFuture = getPageData(startIndex, pageSize, totalItems);
+    return returnFuture.compose(jsonObjects -> {
+      if (jsonObjects.isEmpty()) {
+        return response.end();
+      } else {
+        List<Future<Void>> writeFutures = jsonObjects.stream().map(jsonObject -> response.write(jsonObject.toBuffer().appendString(System.lineSeparator()))).toList();
+        return Future.all(writeFutures).compose(unused -> {
+          long newStartIndex = startIndex + jsonObjects.size();
+          log.info("new Start index:{}, totalItems:{}", newStartIndex, totalItems);
+          if (totalItems - newStartIndex >= 0) {
+            return pipeData2Response(response, newStartIndex, pageSize, totalItems);
+          } else {
+            return response.end();
+          }
+        });
+      }
+    });
+  }
+
+  private Future<List<JsonObject>> getPageData(long startIndex, long pageSize, long totalItems) {
+    long toIndex = startIndex + pageSize - 1;
+
+    if (toIndex > totalItems && startIndex <= totalItems) {
+      toIndex = totalItems;
+    }
+    log.info("start to get data startIndex:{}, pageSize:{}, toIndex: {}, totalItems:{}", startIndex, pageSize, toIndex, totalItems);
+
+    List<JsonObject> jsonObjects = new ArrayList<>();
+    if (totalItems - toIndex >= 0 && startIndex <= totalItems) {
+      Promise<List<JsonObject>> promise = Promise.promise();
+      long finalToIndex = toIndex;
+      vertx.setTimer(100, time -> {
+        for (long i = startIndex; i <= finalToIndex; i++) {
+          jsonObjects.add(new JsonObject().put("id", i).put("data", "data-" + i));
+        }
+
+        log.info("finish to get data startIndex:{}, pageSize:{}, toIndex: {}, totalItems:{}", startIndex, pageSize, finalToIndex, totalItems);
+        promise.complete(jsonObjects);
+      });
+      return promise.future();
+    } else {
+      return Future.succeededFuture(jsonObjects);
+    }
+  }
+
+}
