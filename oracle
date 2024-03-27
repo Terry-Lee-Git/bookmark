@@ -1,0 +1,37 @@
+SELECT 
+    tablespace_name,
+    SUM(bytes) AS total_bytes,
+    SUM(bytes - blocks * 8192) AS used_bytes,
+    SUM(blocks * 8192) AS free_bytes
+FROM 
+    dba_segments 
+WHERE 
+    owner = 'Your_Schema_Name'
+GROUP BY 
+    tablespace_name;
+
+--activemq
+SELECT
+    owner,
+    table_name,
+    ROUND(sum(bytes) / 1024 / 1024, 2) AS "Size (MB)"
+FROM
+    dba_segments
+WHERE
+    segment_type = 'TABLE'
+    AND table_name IN ('ACTIVEMQ_MSGS', 'ACTIVEMQ_ACKS', 'ACTIVEMQ_LOCK', ...)
+GROUP BY
+    owner,
+    table_name;
+
+SELECT
+    tablespace_name,
+    ROUND(SUM(bytes) / 1024 / 1024, 2) AS "Total Space (MB)",
+    ROUND(SUM(bytes - blocks * 8192) / 1024 / 1024, 2) AS "Used Space (MB)",
+    ROUND(SUM(blocks * 8192) / 1024 / 1024, 2) AS "Free Space (MB)"
+FROM
+    dba_free_space
+GROUP BY
+    tablespace_name;
+
+
