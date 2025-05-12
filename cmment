@@ -1,10 +1,16 @@
-has shown excellent management and coordination skills within our pod and is highly proactive. Under his leadership, we completed numerous projects this year, including payment shaping (MVP, iteration 1, iteration 2), settlement for multiple product categories, MPA, TVPC, and others. Many of these projects were completed ahead of schedule, and he even proactively sought new projects from the PO.
+
+Today I’d like to introduce the API Cranker upgrade and deployment process, and discuss the potential impacts it may have on us.
+
+We’ve heard that our API Cranker instances are often restarted. This might be caused by changes in Cranker’s code or configuration, which can trigger automatic upgrades. Sometimes, even changes in someone else’s Cranker configuration can cause our instances to restart.
+
+So, how do they manage these restarts or upgrades? Well, they actually upgrade and deploy each instance one by one. For example, before they upgrade the first instance, they remove its IP address from the DNS server. Since the domain’s TTL is set to two minutes, they wait for about three minutes after removing it from DNS before stopping the instance. Then they deploy the new version or restart it. Once that’s done, they add the instance’s IP back to the DNS. They follow the same steps for the remaining instances
+
+The upgrade or restart process looks pretty graceful, but we need to understand the OS and JVM DNS cache policies. As I’ve mentioned before, in JDK 11 and 17, the default behavior is to refresh DNS every 30 seconds. Initially, I thought JDK 21 might be different, since the java.security file doesn’t seem to include that setting, but actually, it works the same — DNS is refreshed every 30 seconds by default. We usually call this the JVM cache policy.
+
+The OS’s DNS cache may be based on the DNS record’s TTL, which means that once the TTL expires, the record will be automatically removed from the cache.
+
+Now, because we’re using Vert.x, which runs on the JVM, we wondered if it just uses the JVM cache or something else. After looking at the code and running some tests, we found that Vert.x’s WebClient uses Netty’s DnsAddressResolver. The key difference is that it follows the DNS record’s TTL for expiration, instead of using a fixed timeout. So, for example, if the TTL is two minutes, the record will expire after two minutes as long as no errors happen.
 
 
 
-His task coordination and communication skills are exceptional, and due to his proactive approach, we have hardly had any downtime from the beginning of the year until now.
-
-
-Under his leadership, our TPME results have been outstanding, especially with our monthly PDPPY consistently above 700. In the past year, we have also completed over 700 releases.
-
-He has excellent insights into software design and is attentive to the technical growth of team members. He places a strong emphasis on project quality and possesses extensive experience in agile development management.
+The backend should support idempotency — even if the same request is sent more than once, it should only take effect once and not do things twice.
