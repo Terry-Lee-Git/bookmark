@@ -64,3 +64,7 @@ else
   mvn -B deploy -DskipTests
   mvn versions:revert
 fi
+SAFE_BRANCH=$(echo "$BRANCH_NAME" | sed 's#/#-#g' | sed 's/[^a-zA-Z0-9_-]//g')
+SHORT_COMMIT=$(git rev-parse --short HEAD)
+DATE=$(date +%Y%m%d)
+SNAPSHOT_VERSION="${BASE_VERSION_CLEAN}-${SAFE_BRANCH}-${DATE}.${SHORT_COMMIT}-SNAPSHOT"
