@@ -1,0 +1,83 @@
+Making Technical Risks Visible – How We Use Metrics and Monitoring
+
+1. Why We Care – Technical Risk and Transparency
+
+Every time we release a new version, there’s a risk:Something might break, get slow, or behave in ways we don’t expect.
+
+To reduce this risk, our key strategy is transparency.
+If something goes wrong, we don’t want to guess.
+
+We need to see what’s happening inside the system — in real time. so that we can quickly find the root cause and fix it.
+
+2. How Our Monitoring Works
+
+To make the system transparent, we collect metrics in two main ways:
+	•	Each service sends its own metrics to InfluxDB, including technical metrics and some custom business metrics.
+	•	We also have a central monitoring service. It regularly checks all services — like health status or database usage — and submit those metrics to InfluxDB as well
+
+Then we use Grafana to visualize everything
+	•	With Grafana dashboards, we can see both real-time and historical data.
+	•	Grafana also evaluates alert rules continuously
+If something abnormal happens , we get alerts via Symphony or xMatters
+
+This helps us spot problems early and take action fast.
+
+3. What’s on Our Grafana Dashboards
+
+We have two types of dashboards:
+Technical dashboards help us understand system performance, like
+	•	Web server: how many requests we received and how long they take
+	•	HTTP client: how fast we call other APIs, queue sizes, wait times
+	•	Database pool: how busy the DB is, how long queries take, how much connection pool is used
+Business dashboards focus on key checks in our payment  process control
+For example:
+	•	How long each check takes — like high-value checks, TVPC checks, or duplicate checks
+	•	Whether there are any errors
+	•	This helps us track business performance and spot delays
+
+This way, we’re not just watching the system — we’re watching the business logic too.
+
+4. What Metrics Helped Us Catch – Real Examples
+
+Example 1: Queue Filling Up
+
+One time, Grafana showed us that a message queue had a lot of pending items.
+We got an xMatters alert.
+
+Looking at the metrics, we saw a lot of HTTP 401 Unauthorized errors.
+
+Root cause:
+The service didn’t refresh the API token after getting a 401.
+It kept using the same token, so all the requests failed, and the queue kept growing.
+
+What we learned:
+Even if a token is still valid, we should refresh it immediately after a 401.
+Now we follow this as a best practice in our code.
+
+Example 2: HTTP Requests Got Stuck
+
+In another case, the Grafana dashboard showed a large number of pending HTTP client requests.
+
+Root cause:
+A network issue blocked responses.
+Even after the network came back, the old requests were still stuck.
+That blocked new requests from being sent — the system was frozen.
+
+What we learned:
+We must set both connection timeout and request timeout
+for every HTTP call.
+This way, if the network has issues, requests won’t just hang forever.
+
+5. Final Thoughts – Why It Matters
+
+Without metrics, the system is a black box.
+When something breaks, we don’t know where to start.
+
+But with metrics, dashboards, and alerts, everything becomes transparent.
+We can understand what’s happening, fix problems quickly, and stay in control.
+
+This gives us more confidence in every release —
+and helps us build a system that’s stable, reliable, and easier to manage.
+
+Final line:
+Metrics help us reduce risk, stay in control, and move faster with confidence.
