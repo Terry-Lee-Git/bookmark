@@ -47,6 +47,8 @@ Help us understand how the system is doing:
 	•	HTTP clients: how fast we call others, queue size, wait time
 	•	Database: how busy it is, how long queries take, connection pool usage
 
+It’s a shared dashboard, so every new service gets monitoring and alerts automatically.
+
 📊 Business Dashboards
 
 Focus on key checks in our payment process control:
