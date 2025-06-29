@@ -68,19 +68,6 @@ What we learned:
 Even if a token is still valid, we should refresh it immediately after a 401.
 Now this is a best practice in our code.
 
-✅ Example 2: HTTP Requests Got Stuck
-
-Grafana showed a large number of pending HTTP client requests.
-
-Root cause:
-A network issue blocked responses.
-Even after the network came back, old requests were still stuck.
-That blocked new ones — and the system froze.
-
-What we learned:
-We must set both connection timeout and request timeout for every HTTP call.
-That way, if the network has issues, requests won’t hang forever.
-
 
 6. Final Thoughts – Why It Matters
 
