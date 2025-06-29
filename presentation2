@@ -28,8 +28,7 @@ and submits those metrics to InfluxDB too.
 
 Then we use Grafana to visualize the data:
 	•	We can see both real-time and historical data
-	•	Grafana continuously checks alert rules
-	•	If something unusual happens, we get alerts via Symphony or xMatters
+	•	Grafana continuously checks alert rules, If something unusual happens, we get alerts via Symphony or xMatters
 
 This helps us spot problems early and take action fast.
 
@@ -92,7 +91,6 @@ With grafana metrics, dashboards, and alerts, everything becomes transparent.
 We can understand what’s happening, fix problems fast, and stay in control.
 
 This gives us more confidence in every release.
-And helps us build a system that’s stable, reliable, and easier to manage.
 
 That’s all I wanted to share today.
 Thank you for your time
