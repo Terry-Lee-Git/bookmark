@@ -19,7 +19,6 @@ so that we can find the root cause quickly and fix it fast.
 
 we collect metrics in two main ways:
 	•	Each service sends its own metrics to InfluxDB
-(including technical metrics and some custom business metrics).
 	•	We also have a central monitoring service.
 It regularly checks all services — like health status or DB usage —
 and submits those metrics to InfluxDB too.
@@ -28,7 +27,7 @@ Then we use Grafana to visualize the data:
 	•	We can see both real-time and historical data
 	•	Grafana continuously checks alert rules, If something unusual happens, we get alerts via Symphony or xMatters
 
-This helps us spot problems early and take action fast.
+This helps us detect issues early and fix them fast.
 
 4. What’s on Our Grafana Dashboards
 
