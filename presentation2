@@ -12,8 +12,6 @@ It was hard to know why.That took time and caused stress.
 2. Our Solution: Metrics and Monitoring
 
 To reduce this risk, our key strategy is To make the system transparent.
-If something goes wrong, we don’t want to guess.
-
 We need to see what’s happening inside the system — in real time —
 so that we can find the root cause quickly and fix it fast.
 
