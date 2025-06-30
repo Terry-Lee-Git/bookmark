@@ -4,8 +4,9 @@ From Guessing to Knowing – Making Technical Risks Visible
 
 Every time we release a new version, there’s a risk: Something might break, get slow, or behave in ways we don’t expect.
 
-In the past, the system was a black box. When something broke, we didn’t know where to start. check logs, try different things.
-it was difficult to understand the cause, leading to delays and stress.
+In the past, the system was a black box. When something broke,It was hard to know why.
+We had to guess — check logs, try different things. That took time and caused stress.
+
 
 2. Our Solution: Metrics and Monitoring
 
