@@ -2,62 +2,53 @@ From Guessing to Knowing – Making Technical Risks Visible
 
 1. Problem: Why We Needed Transparency
 
-Every time we release a new version, there’s a risk:
-Something might break, get slow, or behave in ways we don’t expect.
+Every time we release a new version, there’s a risk: Something might break, get slow, or behave in ways we don’t expect.
 
-In the past, the system was a black box.
-When something broke, we didn’t know where to start. check logs, try different things.
-It was hard to know why.That took time and caused stress.
+In the past, the system was a black box. When something broke, we didn’t know where to start. check logs, try different things.
+It was hard to know why. That took time and caused stress.
 
 2. Our Solution: Metrics and Monitoring
 
-To reduce this risk, our key strategy is To make the system transparent.
-We need to see what’s happening inside the system — in real time —
+To reduce this risk, our key strategy is To make the system transparent. We need to see what’s happening inside the system — in real time,
 so that we can find the root cause quickly and fix it fast.
 
 3. How Our Monitoring Works
 
 we collect metrics in two main ways:
-	•	Each service sends its own metrics to InfluxDB
-	•	We also have a central monitoring service.
-It regularly checks all services — like health status or DB usage —
-and submits those metrics to InfluxDB too.
+	•Each service sends its own metrics to InfluxDB
+	•We also have a central monitoring service.
+It regularly checks all services — like health status or DB usage — and submits those metrics to InfluxDB too.
 
 Then we use Grafana to visualize the data:
-	•	We can see both real-time and historical data
-	•	Grafana continuously checks alert rules, If something unusual happens, we get alerts via Symphony or xMatters
+	•We can see both real-time and historical data
+	•Grafana continuously checks alert rules, If something unusual happens, we get alerts via Symphony or xMatters
 
 This helps us detect issues early and fix them fast.
 
 4. What’s on Our Grafana Dashboards
 
 We have two types of dashboards:
-
-🛠 Technical Dashboards
-
-Help us understand how the system is doing:
-	•	Web servers: how many requests received, how long they take
-	•	HTTP clients: how fast we call others, queue size, wait time
-	•	Database: how busy it is, how long queries take, connection pool usage
+Technical Dashboards, Help us understand how the system is doing:
+	•Web servers: how many requests received, how long they take
+	•HTTP clients: how fast we call others, queue size, wait time
+	•Database: how busy it is, how long queries take, connection pool usage
 
 It’s a shared dashboard, so every new service gets monitoring and alerts automatically.
 
-📊 Business Dashboards
+Business Dashboards
 
 Focus on key checks in our payment process control:
-	•	How long each check takes — like high-value checks, TVPC, duplicate checks
-	•	Whether there are any errors
+	•How long each check takes — like high-value checks, TVPC, duplicate checks
+	•Whether there are any errors
 
 This helps us track business performance and spot delays.
 
 
 5. What Metrics Helped Us Catch – Real Examples
 
-✅ Example 1: Queue Filling Up
+Example 1: Queue Filling Up
 
-Grafana showed that a message queue had lots of pending items.
-We got an xMatters alert.
-
+Grafana showed that a message queue had lots of pending items. We got an xMatters alert.
 Looking at the metrics, we saw many HTTP 401 Unauthorized errors.
 
 Root cause:
@@ -71,7 +62,7 @@ Now this is a best practice in our code.
 
 6. Final Thoughts – Why It Matters
 
-With grafana metrics, dashboards, and alerts, everything becomes transparent.
+With Grafana metrics, dashboards, and alerts, everything becomes transparent.
 We can understand what’s happening, fix problems fast, and stay in control.
 
 This gives us more confidence in every release.
