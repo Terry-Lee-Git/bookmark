@@ -62,7 +62,7 @@ Now this is a best practice in our code.
 
 6. Final Thoughts – Why It Matters
 
-With Grafana metrics, dashboards, and alerts, everything becomes transparent.
+With Grafana metrics, alerts, everything becomes transparent.
 We can understand what’s happening, fix problems fast, and stay in control.
 
 This gives us more confidence in every release.
