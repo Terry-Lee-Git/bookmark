@@ -56,6 +56,7 @@ Root cause:
 The service didn’t refresh the API token after getting a 401.
 It kept using the same token, so all requests failed, and the queue kept growing.
 
+It took one hour from detecting the prod issue to resolving it.
 What we learned:
 Even if a token is still valid, we should refresh it immediately after a 401.
 Now this is a best practice in our code.
