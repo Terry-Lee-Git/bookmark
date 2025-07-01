@@ -10,7 +10,7 @@ We had to guess — check logs, try different things. That took time�
 
 2. Our Solution: Metrics and Monitoring
 
-To reduce this risk, our key strategy is To make the system transparent. We need to see what’s happening inside the system — in real time,
+To reduce this risk, our key strategy is transparent. We need to see what’s happening inside the system — in real time,
 so that we can find the root cause quickly and fix it fast.
 
 3. How Our Monitoring Works
