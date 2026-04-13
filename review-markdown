@@ -1,0 +1,46 @@
+---
+name: vertx-code-review
+description: Review Vert.x Java code for logging, naming conventions, REST API design, security, and Vert.x best practices. Use when asked to review Vert.x code or Java web service code.
+---
+
+## Code Review Checklist
+
+### 1. Logging
+- Every log must include a **trace/correlation ID** for request tracking
+- Never log sensitive data (passwords, tokens, PII, credit cards)
+- Use structured logging with consistent fields: `traceId`, `action`, `status`
+- Read [references/logging-standards.md](references/logging-standards.md) for log level and format details
+
+### 2. Naming Conventions
+- Classes: PascalCase. Verticles suffixed with `Verticle` (e.g., `OrderVerticle`)
+- Methods: camelCase. Handlers prefixed with `handle` (e.g., `handleGetOrder`)
+- Constants: UPPER_SNAKE_CASE
+- Read [references/naming-conventions.md](references/naming-conventions.md) for full rules
+
+### 3. REST API Naming
+- Use plural nouns: `/api/v1/orders`, not `/api/v1/order`
+- No verbs in paths: use HTTP methods instead
+- Use kebab-case for multi-word resources: `/order-items`
+- Read [references/rest-api-conventions.md](references/rest-api-conventions.md) for details
+
+### 4. Vert.x Best Practices
+- **NEVER block the event loop thread** — no `Thread.sleep()`, no blocking I/O, no synchronized blocks
+- Use `vertx.executeBlocking()` only when unavoidable
+- Prefer fluent async style: `Future.compose()`, `.map()`, `.flatMap()` — avoid raw `Promise` when chaining is possible
+- Reuse `HttpClient` and `WebClient` instances — never create per-request
+- Read [references/vertx-patterns.md](references/vertx-patterns.md) if non-standard patterns are found
+
+### 5. Security
+- All SQL queries must use parameterized queries — no string concatenation
+- CSRF protection on all state-changing endpoints
+- Validate and sanitize all user input
+- No secrets or credentials in code — use config or env vars
+- Read [references/security-checklist.md](references/security-checklist.md) for full security review
+
+## Gotchas
+- `vertx.setTimer()` callbacks run on the event loop — don't block inside them
+- `JsonObject.mapTo()` silently ignores unknown fields — validate input shape explicitly
+- `HttpServerResponse` can only be ended once — guard against double-end in error handlers
+
+## Output Format
+Use [assets/review-template.md](assets/review-template.md) for the review report structure.
