@@ -44,3 +44,13 @@ description: Review Vert.x Java code for logging, naming conventions, REST API d
 
 ## Output Format
 Use [assets/review-template.md](assets/review-template.md) for the review report structure.
+
+
+- Follow Google Java naming conventions
+- Prefer clean and readable code
+- Prefer Vert.x fluent async style using Future.compose
+- Avoid using Promise directly unless necessary
+- Prefer using common libraries provided by the team
+- Prefer integration testing for critical flows
+- Design RESTful APIs
+- Include meaningful and traceable logs
