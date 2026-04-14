@@ -54,3 +54,24 @@ Use [assets/review-template.md](assets/review-template.md) for the review report
 - Prefer integration testing for critical flows
 - Design RESTful APIs
 - Include meaningful and traceable logs
+
+
+## Report Format
+
+For each issue found:
+
+```
+**[SEVERITY]** file.ts:123
+Issue: [Description]
+Fix: [How to fix]
+```
+
+## Decision
+
+- **CRITICAL or HIGH issues**: Block commit, require fixes
+- **MEDIUM issues**: Recommend fixes before merge
+- **LOW issues**: Optional improvements
+
+---
+
+**IMPORTANT**: Never approve code with security vulnerabilities!
