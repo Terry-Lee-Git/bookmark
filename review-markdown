@@ -75,3 +75,21 @@ Fix: [How to fix]
 ---
 
 **IMPORTANT**: Never approve code with security vulnerabilities!
+
+
+
+## Preflight Context
+
+1. Determine scope of code to review:
+   - Prefer the code provided in the current context (editor selection, prompt input)
+   - If available, use git diff to identify recent changes
+   - If git is not available, assume the provided code is the full review scope
+
+2. Understand the code:
+   - Identify entry points
+   - Identify critical paths (auth, payments, data writes, network)
+   - Identify related modules and dependencies
+
+3. Expand context if needed:
+   - Search for related usages or contracts (e.g. via search tools like rg/grep if available)
+
